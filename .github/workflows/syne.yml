@@ -1,0 +1,24 @@
+name: sync to Hugging Face Space
+
+on:
+  workflow_dispatch:   # 可以在 Actions 页面手动触发
+  push:
+    branches: [main]   # 推送到 main 分支时自动触发
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Push to HF Space
+        env:
+          HF_TOKEN: ${{ secrets.hf_token }}
+          SPACE_NAME: ${{ vars.hf_space_name }}
+          USERNAME: ${{ vars.hf_username }}   # ⚠️ 请检查是否为 hf_username 而不是 hf_usernane
+        run: |
+          git config --global user.email "gh-actions@example.com"
+          git config --global user.name "GitHub Actions"
+          git remote add space https://${USERNAME}:${HF_TOKEN}@huggingface.co/spaces/${USERNAME}/${SPACE_NAME}
+          git push space main --force
