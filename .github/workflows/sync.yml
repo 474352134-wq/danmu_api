@@ -1,9 +1,9 @@
 name: sync to Hugging Face Space
 
 on:
-  workflow_dispatch:   # 可以在 Actions 页面手动触发
+  workflow_dispatch:
   push:
-    branches: [main]   # 推送到 main 分支时自动触发
+    branches: [main]
 
 jobs:
   deploy:
@@ -11,12 +11,14 @@ jobs:
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
+        with:
+          fetch-depth: 0          # 完整历史，避免 shallow update 错误
 
       - name: Push to HF Space
         env:
           HF_TOKEN: ${{ secrets.hf_token }}
-          SPACE_NAME: ${{ vars.hf_space_name }}
-          USERNAME: ${{ vars.hf_username }}   # ⚠️ 请检查是否为 hf_username 而不是 hf_usernane
+          SPACE_NAME: ${{ vars.hf_space_name }}   # 变量名与你仓库一致
+          USERNAME: ${{ vars.hf_username }}       # 变量名与你仓库一致
         run: |
           git config --global user.email "gh-actions@example.com"
           git config --global user.name "GitHub Actions"
