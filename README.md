@@ -1,14 +1,4 @@
----
-title: 弹幕API
-emoji: 🎬
-colorFrom: blue
-colorTo: red
-sdk: docker
-app_port: 9321
-app_file: app.py
-pinned: false
----
-<div align="center">
+ <div align="center">
   <img src="https://i.mji.rip/2025/09/27/eedc7b701c0fa5c1f7c175b22f441ad9.jpeg" alt="Clash" width="128" style="border-radius: 16px;" />
 </div>
 
